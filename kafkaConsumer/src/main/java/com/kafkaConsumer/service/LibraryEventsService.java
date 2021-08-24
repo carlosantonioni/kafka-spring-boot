@@ -23,6 +23,7 @@ public class LibraryEventsService {
     ObjectMapper objectMapper;
 
     public void processLibraryEvent(ConsumerRecord<Integer, String> consumerRecord) throws IOException {
+
         LibraryEvent libraryEvent = objectMapper.readValue(consumerRecord.value(), LibraryEvent.class);
 
         log.info("Library event : {} ", libraryEvent);
