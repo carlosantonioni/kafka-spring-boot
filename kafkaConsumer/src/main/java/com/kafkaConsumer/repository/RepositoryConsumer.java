@@ -1,7 +1,7 @@
 package com.kafkaConsumer.repository;
 
-import com.kafkaConsumer.model.ConsumerEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.kafkaConsumer.model.LibraryEvent;
+import org.springframework.data.repository.CrudRepository;
 
-public interface RepositoryConsumer extends JpaRepository<ConsumerEntity, Long> {
+public interface RepositoryConsumer extends CrudRepository<LibraryEvent, Integer> {
 }

@@ -1,12 +1,14 @@
 package com.kafkaConsumer.consumer;
 
 import com.kafkaConsumer.config.LibraryEventsConsumerConfig;
-import com.kafkaConsumer.model.ConsumerEntity;
+import com.kafkaConsumer.service.LibraryEventsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 
 @Component
@@ -14,14 +16,13 @@ import org.springframework.stereotype.Component;
 public class LibraryEventsConsumer {
 
     @Autowired
-    private LibraryEventsConsumerConfig libraryEventsConsumerConfig;
+    LibraryEventsService libraryEventsService;
+
 
     @KafkaListener(topics = {"library-events"})
-    public ConsumerEntity onMessage(ConsumerRecord<Integer, String> consumerRecord) {
+    public void onMessage(ConsumerRecord<Integer, String> consumerRecord) throws IOException {
 
         log.info("ConsumerRecord : {} ", consumerRecord);
-
-        return libraryEventsConsumerConfig.saveConsumer(consumerRecord);
-
+        libraryEventsService.processLibraryEvent(consumerRecord);
     }
 }
